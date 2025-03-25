@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Pokemon Update</title>
+    </head>
+    <body>
+        <h1>Pokemon create</h1>
+        <form action="/poke/create" method="POST">
+            <label for="pokemonName">Name: </label>
+            <input type="text"   name="pokemonName" required>
+
+            </br>
+            <label for="weight">Weight: </label>
+            <input type="text"   name="weight" required>
+
+            </br>
+            <label for="height">Height: </label>
+            <input type="text"   name="height" required>   
+
+            </br>
+            <label for="location_area_encounters">Encounters: </label>
+            <input type="text"   name="location_area_encounters" required>
+
+            </br>
+            <label for="img">Img: </label>
+            <input type="text"  name="img" required>
+
+            </br>
+            <p>For next two inputs write all words with space between them</p>
+
+            <label for="types">Types: </label>
+            <input type="text"  name="types" required>
+
+            </br>
+
+            <label for="abilities">Abilities: </label>
+            <input type="text"   name="abilities" required>
+
+            </br>
+
+
+
+            <button type="submit">Create Pokemon</button>
+        </form>
+    </body>
+</html>

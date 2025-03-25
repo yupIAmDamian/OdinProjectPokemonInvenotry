@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Battles</title>
+    </head>
+    <body>
+        <h1>Battle</h1>
+        <a href="/train">Log out</a>
+        <p>Choose a trainer to battle</p>
+        <form action="/train/<%= trainerId %>/battle" method="POST">
+            <select name="trainer" id="">
+                <% trainers && trainers.forEach((trainer)=>{ %>
+                    <option value="<%= trainer.id %>"><%= trainer.name %></option>
+                <% }) %>
+            </select>
+
+            <button type="submit">Battle</button>
+        </form>
+
+        <a href="/train">Back</a>
+    </body>
+</html>

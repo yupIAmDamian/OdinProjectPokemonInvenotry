@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>Pokemon</title>
+    </head>
+    <body>
+        <h1>
+            Pokemon
+        </h1>
+        <form action="/poke/0/find" method="GET">
+            <input type="text" name="name" placeholder="Name">
+            <input type="text" name="type" placeholder="Type">
+            <input type="submit" value="Find Pokemon">
+        </form>
+        <a href="/poke/create"> Create pokemon</a>
+        <div class="pagination">
+            <span>
+                <-
+            </span>
+            <span>
+                ->
+            </span>
+        </div>
+        <ul>
+            <% allPokemon.forEach((pokemon)=>{ %>
+                <li>
+                    <%= pokemon.name %>
+                    <form action="/poke/<%= pokemon.id %>/delete" method="POST">
+                        <input type="submit" value="deletePokemon"> </input>
+                    </form>
+                    <a href="/poke/<%= pokemon.id %>/update"> Update</a>
+                </li>
+            <%})%>
+        </ul>
+        <script>
+            let pageNum = 0;
+
+            const pagination = document.querySelector('.pagination');
+            const back = pagination.querySelector('span:first-child');
+            const forward = pagination.querySelector('span:last-child');
+
+            var pathArray = window.location.pathname.split('/');
+            pageNum = parseInt(pathArray[2]);
+            let end = "";
+            if ("find" in pathArray){
+                let end = "find";
+            }
+
+            //window.location.replace(window.location.protocol + '//' + window.location.host + '/poke/' + pokemon.id + '/delete' )
+            var newURL = window.location.protocol + "//" + window.location.host + "/poke";
+            back.addEventListener('click',()=>{
+                if (pageNum === 0){
+                    return;
+                }
+                window.location.replace(newURL + `/${pageNum-1}` + end);
+            });
+            forward.addEventListener('click',()=>{
+                window.location.replace(newURL + `/${pageNum+1}` + end);
+            });
+
+
+        </script>
+    </body>
+</html>

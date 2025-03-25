@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Train</title>
+    </head>
+    <body>
+        <h1>Trainers</h1>
+        <p>Train your Pokemon here!</p>
+        <a href="/train/create">Create trainer</a>
+        
+        <br>
+        Choose Pokemon trainer
+
+        <div class="pagination">
+            <span>
+                <-
+            </span>
+            <span>
+                ->
+            </span>
+        </div>
+
+        <ul>
+            <% trainers && trainers.forEach((trainer)=>{ %>
+                <li>
+                    <%= trainer.name %>
+
+                    <form action="/train/<%= trainer.id %>/delete" method="POST">
+                        <button type="submit">Delete</button>
+                        <a href="/train/<%= trainer.id %>/update">Update trainer</a>
+                        <a href="/train/<%= trainer.id %>/profile">Log to Profile</a>
+                    </form>
+                </li>
+            <%})%>
+        </ul>
+
+        <a href="/train/battle">Battle</a>
+        <a href="/poke">Pokedex</a>
+    </body>
+</html>

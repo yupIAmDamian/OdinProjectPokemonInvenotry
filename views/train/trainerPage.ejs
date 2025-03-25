@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title>Pokemon Trainer</title>
+    </head>
+    <body>
+        <h1>Trainer <%= trainer.name%></h1>
+        <a href="/train">Log out</a>
+
+        <p>Age: <%= trainer.age%></p>
+        <p>
+            <strong>Battles total: </strong>
+            <%= trainer.battles %>
+        </p>
+
+        <p>
+            <strong>Wins: </strong>
+            <%= trainer.wins %>
+
+        </p>
+
+        <p>
+            <strong>Losses</strong>
+            <%= trainer.losses %>
+
+        </p>
+
+        <a href="/train/<%= trainer.id%>/battle"> 
+            Battle Somebody
+        </a>
+
+        <div>
+            <h1>
+                Pokemons
+            </h1>
+            <div onClick="catchPokemon()">
+                Catch Pokemon
+            </div>
+            <ul class="pokemonList">
+                <% trainer.pokemon_owned && trainer.pokemon_owned.forEach((pokemon)=>{ %>
+                    <li>
+                        <%= pokemon %>
+                        <div id="<%= pokemon %>" onClick="removePokemon(this.id)">DELETE</div>
+                        <a href="/train/<%= trainer.id%>/transferPokemon/<%= pokemon%>/">Transfer</a>
+                    </li>
+                <%})%>
+            </ul>
+        </div>
+
+        <script>
+            const catchPokemon = async ()=>{                
+                const chance = Math.floor((parseInt("<%= trainer.age%>")/300 + Math.random())* 100) + 1;
+                if (chance > 10){
+                    try{
+                        const res = await fetch("http://localhost:3000/poke/random")
+                        if(!res.ok){
+                            console.log("Pokemon ran away");
+                            return;
+                        }
+                        
+                        const pokemon = await res.json();
+                        const pokemonName = pokemon.rows[0].name;
+                        await fetch("http://localhost:3000/train/<%= trainer.id%>/update", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                pokemonName
+                            })
+                        }).then(
+                           window.location.reload()
+                        )
+                        
+                    }catch(e){
+                        console.log(e, "error")
+                    }
+                    console.log("Pokemon caught");
+                }else{
+                    console.log("Pokemon ran away");
+                }
+            }
+
+            const  removePokemon = async(id) =>{
+                try{
+
+                    await fetch("http://localhost:3000/train/<%= trainer.id%>/deletePokemon", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            pokemonName: id
+                        })
+                    })
+                        window.location.reload()
+                }catch(e){
+                    console.log(e, "error")
+                }
+                console.log("Pokemon removed");
+            }
+
+            //TODO: Create this function
+            //1step: removes pokemon from player
+            //2step: adds pokemon to other player
+        </script>
+    </body>
+</html>

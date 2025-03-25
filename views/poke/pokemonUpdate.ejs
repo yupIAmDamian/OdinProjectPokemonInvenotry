@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>Pokemon Update</title>
+    </head>
+    <body>
+        <h1>Pokemon update</h1>
+        <h2><%= pokemonData.name %> </h2>
+        <form action="/poke/<%= pokemonData.id %>/update" method="POST">
+            <label for="pokemonName">Name: </label>
+            <input type="text" value="<%= pokemonData.name%>"  name="pokemonName" required>
+
+            </br>
+            <label for="weight">Weight: </label>
+            <input type="text" value="<%= pokemonData.weight%>"  name="weight" required>
+
+            </br>
+            <label for="height">Height: </label>
+            <input type="text" value="<%= pokemonData.height%>"  name="height" required>   
+
+            </br>
+            <label for="location_area_encounters">Encounters: </label>
+            <input type="text" value="<%= pokemonData.location_area_encounters%>"  name="location_area_encounters" required>
+
+            </br>
+            <label for="img">Img: </label>
+            <input type="text" value="<%= pokemonData.img%>"  name="img" required>
+
+            </br>
+            <p>For next two inputs write all words with space between them</p>
+
+            <label for="types">Types: </label>
+            <input type="text" value="<%=  pokemonData.types.join(' ')%>"  name="types" required>
+
+            </br>
+
+            <label for="abilities">Abilities: </label>
+            <input type="text" value="<%=  pokemonData.abilities.join(' ')%>"   name="abilities" required>
+
+            </br>
+
+
+
+            <button type="submit">Update Pokemon</button>
+        </form>
+    </body>
+</html>
